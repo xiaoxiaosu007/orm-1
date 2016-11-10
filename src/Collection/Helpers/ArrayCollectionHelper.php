@@ -223,8 +223,8 @@ class ArrayCollectionHelper
 		if ($value instanceof IEntity) {
 			return $value->hasValue('id') ? $value->getValue('id') : null;
 
-		} elseif ((isset($propertyMetadata->types['DateTime']) || isset($propertyMetadata->types['datetime'])) && $value !== null && !$value instanceof \DateTime) {
-			return new \DateTime($value);
+		} elseif (isset($propertyMetadata->types['datetime']) && $value !== null && !$value instanceof \DateTimeImmutable) {
+			return new \DateTimeImmutable($value);
 		}
 
 		return $value;

@@ -163,7 +163,7 @@ class MetadataParser implements IMetadataParser
 		static $allTypes = [
 			'array', 'bool', 'boolean', 'double', 'float', 'int', 'integer', 'mixed',
 			'numeric', 'number', 'null', 'object', 'real', 'string', 'text', 'void',
-			'datetime', 'datetimeimmutable', 'scalar',
+			'scalar',
 		];
 		static $alliases = [
 			'double' => 'float',
@@ -182,6 +182,8 @@ class MetadataParser implements IMetadataParser
 				$type = $this->makeFQN($type);
 			} elseif (isset($alliases[strtolower($type)])) {
 				$type = $alliases[strtolower($type)];
+			} elseif (is_subclass_of($type, \DateTimeInterface::class)) {
+				$type = 'datetime';
 			}
 			$types[$type] = true;
 		}
